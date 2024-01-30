@@ -2,7 +2,8 @@ import './App.css';
 
 import React from 'react'
 import ToDo from "./ToDo" // ./는 현재 파일 위치
-
+import {Paper, List, Container} from "@material-ui/core"
+import AddToDo from './AddToDo';
 
 class App extends React.Component {
   constructor(props){
@@ -17,12 +18,21 @@ class App extends React.Component {
     //item은 배열을 순회할 때 각각의 데이터이고 idx는 인덱스
     //배열을 순회하면서 출력물을 만들 때는 key를 설정해야
     //key 설정 X => 출력에 문제 없지만 콘솔에 에러 출력
-    var display = this.state.items.map((item, idx) => (
-      <ToDo item = {item} key={item.id} />
-    ) );
+    var display = this.state.items.length > 0 && (
+      <Paper style = {{margin : 16}}>
+          <List>
+            {this.state.items.map((item, idx) => (
+              <ToDo item ={item} id = {idx}/>            
+              ))}
+          </List>
+      </Paper>
+    )
     return(
       <div className='App'>
+        <Container maxWidth = "md">
+        <AddToDo />
         {display} 
+        </Container>
       </div>
     )
   }
